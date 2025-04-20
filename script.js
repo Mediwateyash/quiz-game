@@ -1,58 +1,59 @@
 const questions = [
     {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Lisbon"],
-        answer: "Paris"
+        question: "What is the capital of India?",
+        options: ["Mumbai", "New Delhi", "Bangalore", "Kolkata"],
+        answer: "New Delhi"
     },
     {
-        question: "Which planet is known as the Red Planet?",
-        options: ["Earth", "Mars", "Jupiter", "Saturn"],
-        answer: "Mars"
+        question: "Which is the largest state in India by area?",
+        options: ["Maharashtra", "Uttar Pradesh", "Rajasthan", "Gujarat"],
+        answer: "Rajasthan"
     },
     {
-        question: "Who wrote 'Romeo and Juliet'?",
-        options: ["Mark Twain", "Charles Dickens", "William Shakespeare", "Jane Austen"],
-        answer: "William Shakespeare"
+        question: "Who is known as the Father of the Nation in India?",
+        options: ["Jawaharlal Nehru", "Mahatma Gandhi", "B.R. Ambedkar", "Sardar Patel"],
+        answer: "Mahatma Gandhi"
     },
     {
-        question: "What is the largest ocean on Earth?",
-        options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
-        answer: "Pacific Ocean"
+        question: "Which river is considered the holiest river in India?",
+        options: ["Ganges", "Yamuna", "Saraswati", "Godavari"],
+        answer: "Ganges"
     },
     {
-        question: "What is the chemical symbol for gold?",
-        options: ["Au", "Ag", "Pb", "Fe"],
-        answer: "Au"
+        question: "What is the national animal of India?",
+        options: ["Lion", "Tiger", "Elephant", "Peacock"],
+        answer: "Tiger"
     },
     {
-        question: "Which element has the atomic number 1?",
-        options: ["Oxygen", "Hydrogen", "Helium", "Carbon"],
-        answer: "Hydrogen"
+        question: "Which festival is known as the Festival of Lights?",
+        options: ["Holi", "Diwali", "Eid", "Christmas"],
+        answer: "Diwali"
     },
     {
-        question: "What is the powerhouse of the cell?",
-        options: ["Nucleus", "Mitochondria", "Ribosome", "Endoplasmic Reticulum"],
-        answer: "Mitochondria"
+        question: "What is the official currency of India?",
+        options: ["Dollar", "Euro", "Rupee", "Yen"],
+        answer: "Rupee"
     },
     {
-        question: "What is the largest mammal in the world?",
-        options: ["Elephant", "Blue Whale", "Giraffe", "Great White Shark"],
-        answer: "Blue Whale"
+        question: "Which is the national flower of India?",
+        options: ["Rose", "Lotus", "Sunflower", "Marigold"],
+        answer: "Lotus"
     },
     {
-        question: "In which year did the Titanic sink?",
-        options: ["1912", "1905", "1898", "1920"],
-        answer: "1912"
+        question: "Who was the first Prime Minister of India?",
+        options: ["Indira Gandhi", "Lal Bahadur Shastri", "Jawaharlal Nehru", "Rajiv Gandhi"],
+        answer: "Jawaharlal Nehru"
     },
     {
-        question: "What is the capital of Japan?",
-        options: ["Seoul", "Beijing", "Tokyo", "Bangkok"],
-        answer: "Tokyo"
+        question: "Which city is known as the Silicon Valley of India?",
+        options: ["Hyderabad", "Bangalore", "Pune", "Chennai"],
+        answer: "Bangalore"
     }
 ];
 
 let currentQuestionIndex = 0;
 let score = 0;
+let userAnswers = [];
 
 const questionElement = document.getElementById('question');
 const optionsElement = document.getElementById('options');
@@ -60,12 +61,16 @@ const nextButton = document.getElementById('next-button');
 const resultContainer = document.getElementById('result-container');
 const scoreElement = document.getElementById('score');
 const restartButton = document.getElementById('restart-button');
+const viewAnswersButton = document.getElementById('view-answers-button');
+const answersContainer = document.getElementById('answers-container');
 
 function startGame() {
     currentQuestionIndex = 0;
     score = 0;
+    userAnswers = [];
     nextButton.classList.remove('hidden');
     resultContainer.classList.add('hidden');
+    answersContainer.classList.add('hidden');
     showQuestion(questions[currentQuestionIndex]);
 }
 
@@ -83,6 +88,7 @@ function showQuestion(question) {
 
 function selectOption(selectedOption) {
     const currentQuestion = questions[currentQuestionIndex];
+    userAnswers.push(selectedOption);
     if (selectedOption === currentQuestion.answer) {
         score++;
     }
@@ -100,15 +106,32 @@ function showResult() {
     scoreElement.innerText = `${score} out of ${questions.length}`;
 }
 
-restartButton.addEventListener('click', startGame);
-nextButton.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion(questions[currentQuestionIndex]);
-    } else {
-        showResult();
+function showAnswers() {
+    answersContainer.classList.remove('hidden');
+    answersContainer.innerHTML = '';
+    questions.forEach((question, index) => {
+        const answerDiv = document.createElement('div');
+        answerDiv.classList.add('answer');
+        answerDiv.innerHTML = `
+            <strong>Q${index + 1}: ${question.question}</strong><br>
+            Your Answer: <span class="${userAnswers[index] === question.answer ? 'correct' : 'wrong'}">${userAnswers[index]}</span><br>
+            Correct Answer: <span class="correct">${question            .answer}</span><br><br>
+            `;
+            answersContainer.appendChild(answerDiv);
+        });
     }
-});
-
-// Start the game when the page loads
-startGame();
+    
+    restartButton.addEventListener('click', startGame);
+    nextButton.addEventListener('click', () => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            showQuestion(questions[currentQuestionIndex]);
+        } else {
+            showResult();
+        }
+    });
+    
+    viewAnswersButton.addEventListener('click', showAnswers);
+    
+    // Start the game when the page loads
+    startGame();

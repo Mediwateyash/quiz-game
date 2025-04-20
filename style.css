@@ -57,3 +57,23 @@ h1 {
 .option:hover {
     background-color: #d4d4d4;
 }
+
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #007bff;
+    text-align: center;
+    padding: 10px 0;
+    color: white;
+}
+.correct {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.wrong {
+    background-color: #f44336; /* Red */
+    color: white;
+}
