@@ -1,0 +1,79 @@
+/* Base styles for all devices */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Mobile styles */
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .option {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* Tablet styles */
+@media (min-width: 601px) and (max-width: 900px) {
+    .container {
+        width: 80%;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .btn {
+        width: auto;
+        padding: 10px 15px;
+        font-size: 18px;
+    }
+
+    .option {
+        font-size: 16px;
+        padding: 10px;
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 901px) {
+    .container {
+        width: 50%;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+
+    .option {
+        font-size: 18px;
+        padding: 12px;
+    }
+}
